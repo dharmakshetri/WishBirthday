@@ -2,20 +2,55 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.prandroid.wishbirthday">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+        <activity
+            android:name=".BirthdaysAdd"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".BirthdayDetails"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"></activity>
+
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" > </activity>
+        <receiver android:name=".NotificationActionReceiver" >
+        </receiver>
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <service android:name=".notification.ScheduleService" />
+        <service android:name=".notification.NotifyService" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f2e805224a70702d6e89da0d339c573e64d5ec91"></meta-data>
     </application>
 
 </manifest>
