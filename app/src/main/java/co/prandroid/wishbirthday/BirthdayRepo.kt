@@ -13,7 +13,7 @@ import java.util.ArrayList
 import java.util.HashMap
 
 class BirthdayRepo(context: Context) {
-    val dbHelper: DBHelper = null!!
+    var dbHelper: DBHelper? = null
 
     init {
         dbHelper = DBHelper(context)
@@ -22,7 +22,7 @@ class BirthdayRepo(context: Context) {
     fun insert(birthday: Birthday): Int {
         // TODO Auto-generated method stub
 
-        val db = dbHelper.getWritableDatabase()
+        val db = dbHelper?.getWritableDatabase()
         val values = ContentValues()
         values.put(Birthday.KEY_date, birthday.date)
         values.put(Birthday.KEY_email, birthday.email)
@@ -33,22 +33,22 @@ class BirthdayRepo(context: Context) {
         values.put(Birthday.KEY_notifications, birthday.notification)
 
         // Inserting Row
-        val birthday_Id = db.insert(Birthday.TABLE_BIRTHDAY, null, values)
-        db.close() // Closing database connection
-        return birthday_Id.toInt()
+        val birthday_Id = db?.insert(Birthday.TABLE_BIRTHDAY, null, values)
+        db?.close() // Closing database connection
+        return birthday_Id?.toInt()!!
     }
 
     fun delete(birthday_Id: Int) {
         //int student_Id = getFirstStudent();
 
-        val db = dbHelper.getWritableDatabase()
-        db.delete(Birthday.TABLE_BIRTHDAY, Birthday.KEY_ID + "=" + birthday_Id, null)
+        val db = dbHelper?.getWritableDatabase()
+        db!!.delete(Birthday.TABLE_BIRTHDAY, Birthday.KEY_ID + "=" + birthday_Id, null)
         db.close() // Closing database connection
     }
 
     fun update(birthday: Birthday, sid: Int) {
 
-        val db = dbHelper.getWritableDatabase()
+        val db = dbHelper?.getWritableDatabase()
         val values = ContentValues()
 
         values.put(Birthday.KEY_date, birthday.date)
@@ -59,28 +59,29 @@ class BirthdayRepo(context: Context) {
         values.put(Birthday.KEY_favourite, birthday.favourite)
         values.put(Birthday.KEY_notifications, birthday.notification)
 
-        db.update(Birthday.TABLE_BIRTHDAY, values, Birthday.KEY_ID + "=" + sid, null)
+        db!!.update(Birthday.TABLE_BIRTHDAY, values, Birthday.KEY_ID + "=" + sid, null)
         db.close() // Closing database connection
     }
 
     fun updateFavourite(fav: Int, sid: Int) {
 
 
-        val db = dbHelper.getWritableDatabase()
+        val db = dbHelper?.getWritableDatabase()
         val values = ContentValues()
 
         values.put(Birthday.KEY_favourite, fav)
-        db.update(Birthday.TABLE_BIRTHDAY, values, Birthday.KEY_ID + "=" + sid, null)
+        db!!.update(Birthday.TABLE_BIRTHDAY, values, Birthday.KEY_ID + "=" + sid, null)
         db.close() // Closing database connection
     }
 
-     val  birthdayList: ArrayList<Any> = null!!
+
+     lateinit var  birthdayList: ArrayList<String>
 
     // get all data
     // looping through all rows and adding to list
-    val all: ArrayList<*>
+    val all: ArrayList<String>
         get() {
-            val db = dbHelper.getReadableDatabase()
+            val db = dbHelper?.getReadableDatabase()
             val selectQuery = "SELECT  " +
                     Birthday.KEY_ID + "," +
                     Birthday.KEY_name + "," +
@@ -92,7 +93,7 @@ class BirthdayRepo(context: Context) {
 
 
 
-            val cursor = db.rawQuery(selectQuery, null)
+            val cursor = db!!.rawQuery(selectQuery, null)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -117,7 +118,7 @@ class BirthdayRepo(context: Context) {
     // looping through all rows and adding to list
     val allBirthday: ArrayList<Birthday>
         get() {
-            val db = dbHelper.getReadableDatabase()
+            val db = dbHelper?.getReadableDatabase()
             val selectQuery = "SELECT  " +
                     Birthday.KEY_ID + "," +
                     Birthday.KEY_name + "," +
@@ -130,7 +131,7 @@ class BirthdayRepo(context: Context) {
                     " FROM " + Birthday.TABLE_BIRTHDAY + " ORDER BY " + Birthday.KEY_name + " ASC"
             val birthdayList = ArrayList<Birthday>()
 
-            val cursor = db.rawQuery(selectQuery, null)
+            val cursor = db!!.rawQuery(selectQuery, null)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -160,7 +161,7 @@ class BirthdayRepo(context: Context) {
     fun getCategoryBirthDay(cat: String): ArrayList<Birthday> {
         val category = cat
         Log.e("category", "===" + cat)
-        val db = dbHelper.getReadableDatabase()
+        val db = dbHelper?.getReadableDatabase()
         val selectQuery = "SELECT  " +
                 Birthday.KEY_ID + "," +
                 Birthday.KEY_name + "," +
@@ -175,10 +176,10 @@ class BirthdayRepo(context: Context) {
         //ArrayList studentList =new ArrayList();
         val birthdayList = ArrayList<Birthday>()
 
-        val cursor = db.rawQuery(selectQuery, null)
+        val cursor = db?.rawQuery(selectQuery, null)
         // looping through all rows and adding to list
 
-        if (cursor.moveToFirst()) {
+        if (cursor!!.moveToFirst()) {
             do {
                 val birthday = Birthday()
                 Log.e("Category", " Frined= Name=" + cursor.getColumnIndex(Birthday.KEY_name))
@@ -208,7 +209,7 @@ class BirthdayRepo(context: Context) {
     // looping through all rows and adding to list
     val favouriteBirthDay: ArrayList<Birthday>
         get() {
-            val db = dbHelper.getReadableDatabase()
+            val db = dbHelper?.getReadableDatabase()
             val selectQuery = "SELECT  " +
                     Birthday.KEY_ID + "," +
                     Birthday.KEY_name + "," +
@@ -221,9 +222,9 @@ class BirthdayRepo(context: Context) {
                     " FROM " + Birthday.TABLE_BIRTHDAY + " WHERE " + Birthday.KEY_favourite + "=" + 1
             val birthdayList = ArrayList<Birthday>()
 
-            val cursor = db.rawQuery(selectQuery, null)
+            val cursor = db?.rawQuery(selectQuery, null)
 
-            if (cursor.moveToFirst()) {
+            if (cursor!!.moveToFirst()) {
                 do {
                     val birthday = Birthday()
                     Log.e("Category", " Frined= Name=" + cursor.getColumnIndex(Birthday.KEY_name))
@@ -242,7 +243,7 @@ class BirthdayRepo(context: Context) {
             }
 
             cursor.close()
-            db.close()
+            db?.close()
             return birthdayList
 
         }
@@ -251,7 +252,7 @@ class BirthdayRepo(context: Context) {
     // looping through all rows and adding to list
     val studentList: ArrayList<HashMap<String, String>>
         get() {
-            val db = dbHelper.getReadableDatabase()
+            val db = dbHelper?.getReadableDatabase()
             val selectQuery = "SELECT  " +
                     Birthday.KEY_ID + "," +
                     Birthday.KEY_name + "," +
@@ -261,7 +262,7 @@ class BirthdayRepo(context: Context) {
             val studentList = ArrayList<HashMap<String, String>>()
 
 
-            val cursor = db.rawQuery(selectQuery, null)
+            val cursor = db!!.rawQuery(selectQuery, null)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -280,7 +281,7 @@ class BirthdayRepo(context: Context) {
         }
 
     fun getStudentById(Id: Int): Birthday {
-        val db = dbHelper.getReadableDatabase()
+        val db = dbHelper?.getReadableDatabase()
         val selectQuery = "SELECT  " +
                 Birthday.KEY_ID + "," +
                 Birthday.KEY_name + "," +
@@ -297,7 +298,7 @@ class BirthdayRepo(context: Context) {
         val iCount = 0
         val birthday = Birthday()
 
-        val cursor = db.rawQuery(selectQuery, null)
+        val cursor = db!!.rawQuery(selectQuery, null)
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
@@ -322,7 +323,7 @@ class BirthdayRepo(context: Context) {
     private // looping through all rows and adding to list
     val firstStudent: Int
         get() {
-            val db = dbHelper.getReadableDatabase()
+            val db = dbHelper?.getReadableDatabase()
             val selectQuery = "SELECT  " +
                     Birthday.KEY_ID +
                     " FROM " + Birthday.TABLE_BIRTHDAY +" LIMIT 1;"
@@ -331,7 +332,7 @@ class BirthdayRepo(context: Context) {
             var student_Id = 0
 
 
-            val cursor = db.rawQuery(selectQuery, null)
+            val cursor = db!!.rawQuery(selectQuery, null)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -341,7 +342,7 @@ class BirthdayRepo(context: Context) {
             }
 
             cursor.close()
-            db.close()
+            db!!.close()
             return student_Id
         }
 
@@ -349,7 +350,7 @@ class BirthdayRepo(context: Context) {
     // looping through all rows and adding to list
     val lastBirthday: Int
         get() {
-            val db = dbHelper.getReadableDatabase()
+            val db = dbHelper?.getReadableDatabase()
             val selectQuery = "SELECT  " +
                     Birthday.KEY_ID +
                     " FROM " + Birthday.TABLE_BIRTHDAY +" ORDER BY " +
@@ -359,7 +360,7 @@ class BirthdayRepo(context: Context) {
             var birthday_Id = 0
 
 
-            val cursor = db.rawQuery(selectQuery, null)
+            val cursor = db!!.rawQuery(selectQuery, null)
 
             if (cursor.moveToFirst()) {
                 do {

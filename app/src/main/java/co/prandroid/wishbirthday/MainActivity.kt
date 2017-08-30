@@ -3,6 +3,8 @@ package co.prandroid.wishbirthday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.TabLayout
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //setNotification(bid);
-        //toolbar = findViewById(R.id.toolbar) as Toolbar
+        toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         RateThisApp.init(RateThisApp.Config(3, 5))
 
@@ -64,10 +66,10 @@ class MainActivity : AppCompatActivity() {
         Birthday.arrayNotificationCheckList = Arrays.asList(*arrayNotificationCheckList)
 
 
-        //viewPager = findViewById(R.id.viewpager) as ViewPager
+        viewPager = findViewById<ViewPager>(R.id.viewpager)
         setupViewPager(viewPager!!)
 
-        //tabLayout = findViewById(R.id.tabs) as TabLayout
+        var tabLayout = findViewById<TabLayout>(R.id.tabs)
         tabLayout.setupWithViewPager(viewPager)
 
 
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         requestNewInterstitial()
-        //val fab = findViewById(R.id.fab) as FloatingActionButton
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener(View.OnClickListener {
             // without ever showing it.
             if (mInterstitialAd!!.isLoaded()) {
@@ -136,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         val birthdayRepo = BirthdayRepo(this)
         var studentsList = ArrayList<Birthday>()
 
-        studentsList = birthdayRepo.getAllBirthday()
+        studentsList = birthdayRepo.allBirthday
 
         val rightNow = Calendar.getInstance()
 
