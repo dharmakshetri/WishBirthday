@@ -1,17 +1,19 @@
-package co.prandroid.wishbirthday
+package co.prandroid.wishbirthday.birthday
 
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.text.method.TextKeyListener.clear
 
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.util.Log
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
-
+import co.prandroid.wishbirthday.message.Message
+import co.prandroid.wishbirthday.message.MessageBaseAdapter
+import co.prandroid.wishbirthday.message.MessageRepo
+import co.prandroid.wishbirthday.R
 
 
 /**
@@ -53,7 +55,7 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
 
         val birthdayRepo = BirthdayRepo(this)
         birthday = birthdayRepo.getStudentById(birthDayId)
-        supportActionBar!!.setTitle(Birthday.name!! + " Details")
+        supportActionBar!!.title = birthday.name!! + " Details"
         setUpViews()
         setUpValues()
     }
@@ -75,7 +77,7 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
         btnShare.setOnClickListener(this)
 
         listViewMesssage = findViewById<View>(R.id.listmessage) as ListView
-        listViewMesssage.setVisibility(View.VISIBLE)
+        listViewMesssage.visibility = View.VISIBLE
         tvMessage = findViewById<View>(R.id.tvMessages) as TextView
         editMessage = findViewById<View>(R.id.editMessage) as EditText
         btnEditMessage = findViewById<View>(R.id.btnEditMessage) as Button
@@ -87,7 +89,7 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
     }
 
     fun setUpValues() {
-        tvName.setText(birthday.name)
+        tvName.text = birthday.name
         val splitArray = birthday.date!!.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val month = Birthday.getMonth(splitArray[0].toString())
         tvBirthDay.text = month + " - " + splitArray[1].toString()
@@ -101,8 +103,8 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
 
         Log.e("LIXE SIXE", "   3     arrayListMessae=" + arrayListMessae.size)
         messageAdapter = MessageBaseAdapter(applicationContext, arrayListMessae)
-        listViewMesssage.setAdapter(messageAdapter)
-        listViewMesssage.setOnItemClickListener(this)
+        listViewMesssage.adapter = messageAdapter
+        listViewMesssage.onItemClickListener = this
         flagFav = birthday.favourite
         if (flagFav == 0) {
             imgFav.setBackgroundResource(R.drawable.nofav_32)
@@ -126,10 +128,10 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
         val messageRepo = MessageRepo(applicationContext)
         var message = Message(applicationContext)
         message = messageRepo.getMessage(messageId, applicationContext)
-        listViewMesssage.setVisibility(View.GONE)
+        listViewMesssage.visibility = View.GONE
         tvMessage.visibility = View.VISIBLE
-        tvMessage.setText(message.messageName)
-        btnEditMessage.setVisibility(View.VISIBLE)
+        tvMessage.text = message.messageName
+        btnEditMessage.visibility = View.VISIBLE
         messageType = "textview"
     }
 
@@ -201,8 +203,8 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
             R.id.btnEditMessage -> {
                 editMessage.visibility = View.VISIBLE
                 tvMessage.visibility = View.GONE
-                listViewMesssage.setVisibility(View.GONE)
-                btnEditMessage.setVisibility(View.GONE)
+                listViewMesssage.visibility = View.GONE
+                btnEditMessage.visibility = View.GONE
                 editMessage.setText(tvMessage.text.toString())
                 messageType = "edittext"
             }

@@ -1,7 +1,6 @@
 package co.prandroid.wishbirthday
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
@@ -9,7 +8,6 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.app.NotificationCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -19,7 +17,7 @@ import android.view.MenuItem
 import android.view.View
 import co.happybirthday.fragments.FriendsFragment
 import co.happybirthday.fragments.RelativeFragment
-import co.prandroid.wishbirthday.Birthday
+import co.prandroid.wishbirthday.birthday.Birthday
 
 
 import java.util.ArrayList
@@ -28,15 +26,14 @@ import java.util.Calendar
 import java.util.Date
 
 
-import co.prandroid.wishbirthday.R
+import co.prandroid.wishbirthday.birthday.BirthdayRepo
+import co.prandroid.wishbirthday.birthday.BirthdaysAdd
 import co.prandroid.wishbirthday.fragments.AllFragment
 import co.prandroid.wishbirthday.fragments.FavouriteFragment
 import co.prandroid.wishbirthday.fragments.OtherFragment
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.common.api.GoogleApiClient
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {

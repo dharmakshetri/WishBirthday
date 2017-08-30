@@ -1,13 +1,12 @@
-package co.prandroid.wishbirthday
+package co.prandroid.wishbirthday.birthday
 
 /**
  * Created by dharmakshetri on 8/28/17.
  */
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import android.util.Log
+import co.prandroid.wishbirthday.database.DBHelper
 
 import java.util.ArrayList
 import java.util.HashMap

@@ -1,4 +1,4 @@
-package co.prandroid.wishbirthday
+package co.prandroid.wishbirthday.birthday
 
 /**
  * Created by dharmakshetri on 8/28/17.
@@ -9,10 +9,8 @@ import android.util.Log
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.nio.channels.FileChannel
 import java.util.ArrayList
 import java.util.Calendar
-import java.util.Date
 import java.util.TimeZone
 
 
@@ -128,18 +126,18 @@ class Birthday {
             val intmonth = Integer.parseInt(strmonth)
             var month = ""
             when (intmonth) {
-                1 -> month = Birthday.arrayMonths!![0].toString()
-                2 -> month = Birthday.arrayMonths!![1].toString()
-                3 -> month = Birthday.arrayMonths!![2].toString()
-                4 -> month = Birthday.arrayMonths!![3].toString()
-                5 -> month = Birthday.arrayMonths!![4].toString()
-                6 -> month = Birthday.arrayMonths!![5].toString()
-                7 -> month = Birthday.arrayMonths!![6].toString()
-                8 -> month = Birthday.arrayMonths!![7].toString()
-                9 -> month = Birthday.arrayMonths!![8].toString()
-                10 -> month = Birthday.arrayMonths!![9].toString()
-                11 -> month = Birthday.arrayMonths!![10].toString()
-                12 -> month = Birthday.arrayMonths!![11].toString()
+                1 -> month = arrayMonths!![0].toString()
+                2 -> month = arrayMonths!![1].toString()
+                3 -> month = arrayMonths!![2].toString()
+                4 -> month = arrayMonths!![3].toString()
+                5 -> month = arrayMonths!![4].toString()
+                6 -> month = arrayMonths!![5].toString()
+                7 -> month = arrayMonths!![6].toString()
+                8 -> month = arrayMonths!![7].toString()
+                9 -> month = arrayMonths!![8].toString()
+                10 -> month = arrayMonths!![9].toString()
+                11 -> month = arrayMonths!![10].toString()
+                12 -> month = arrayMonths!![11].toString()
             }
 
             return month
@@ -149,15 +147,15 @@ class Birthday {
         fun getCategoryId(cat: String): Int {
             var catid = 0
 
-            if (cat.equals(Birthday.friends, ignoreCase = true)) {
+            if (cat.equals(friends, ignoreCase = true)) {
                 catid = 0
-            } else if (cat.equals(Birthday.family, ignoreCase = true)) {
+            } else if (cat.equals(family, ignoreCase = true)) {
                 catid = 1
-            } else if (cat.equals(Birthday.relative, ignoreCase = true)) {
+            } else if (cat.equals(relative, ignoreCase = true)) {
                 catid = 2
-            } else if (cat.equals(Birthday.colleague, ignoreCase = true)) {
+            } else if (cat.equals(colleague, ignoreCase = true)) {
                 catid = 3
-            } else if (cat.equals(Birthday.other, ignoreCase = true)) {
+            } else if (cat.equals(other, ignoreCase = true)) {
                 catid = 4
             }
 
