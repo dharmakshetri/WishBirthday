@@ -1,25 +1,29 @@
 package co.prandroid.wishbirthday.birthday
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
 import android.util.Log
 import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
 import co.prandroid.wishbirthday.message.Message
-import co.prandroid.wishbirthday.message.MessageBaseAdapter
 import co.prandroid.wishbirthday.message.MessageRepo
 import co.prandroid.wishbirthday.R
+import co.prandroid.wishbirthday.message.MessageRecyclerViewAdapter
 
 
+@SuppressLint("StaticFieldLeak")
 /**
  * Created by dharmakshetri on 8/28/17.
  */
-class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickListener {
+class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
     internal lateinit var tvName: TextView
     internal lateinit var tvBirthDay: TextView
     internal lateinit var tvRemainingTime: TextView
@@ -29,17 +33,20 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
     internal lateinit var btnEditNames: Button
     internal var birthDayId: Int = 0
     internal lateinit var birthday: Birthday
-    internal lateinit var listViewMesssage: ListView
+    // internal lateinit var listViewMesssage: ListView
     internal var arrayListMessae = ArrayList<Message>()
-    internal lateinit var messageAdapter: MessageBaseAdapter
+    // internal lateinit var messageAdapter: MessageBaseAdapter
     internal lateinit var btnEditMessage: Button
     internal lateinit var tvMessage: TextView
     internal lateinit var editMessage: EditText
-    internal var messageType = ""
+    var messageType: String = ""
     internal var textSubject = "Happy Birthday to You!!!"
     internal var textMessage = ""
     internal lateinit var imgFav: ImageView
     internal var flagFav = 0
+
+    lateinit var message_recycler_view: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.birthdaydetails)
@@ -61,14 +68,15 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
     }
 
     fun setUpViews() {
-        tvName = findViewById<View>(R.id.txtName) as TextView
-        tvBirthDay = findViewById<View>(R.id.txtBirthDate) as TextView
-        tvRemainingTime = findViewById<View>(R.id.txtRTime) as TextView
+        tvName = findViewById<TextView>(R.id.txtName)
 
-        btnEmail = findViewById<View>(R.id.btnEmail) as Button
-        btnMessage = findViewById<View>(R.id.btnMessage) as Button
-        btnShare = findViewById<View>(R.id.btnShare) as Button
-        btnEditNames = findViewById<View>(R.id.btnEdit) as Button
+        tvBirthDay = findViewById<TextView>(R.id.txtBirthDate)
+        tvRemainingTime = findViewById<TextView>(R.id.txtRTime)
+
+        btnEmail = findViewById<Button>(R.id.btnEmail)
+        btnMessage = findViewById<Button>(R.id.btnMessage)
+        btnShare = findViewById<Button>(R.id.btnShare)
+        btnEditNames = findViewById<Button>(R.id.btnEdit)
 
 
         btnEditNames.setOnClickListener(this)
@@ -76,11 +84,15 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
         btnMessage.setOnClickListener(this)
         btnShare.setOnClickListener(this)
 
-        listViewMesssage = findViewById<View>(R.id.listmessage) as ListView
-        listViewMesssage.visibility = View.VISIBLE
-        tvMessage = findViewById<View>(R.id.tvMessages) as TextView
-        editMessage = findViewById<View>(R.id.editMessage) as EditText
-        btnEditMessage = findViewById<View>(R.id.btnEditMessage) as Button
+
+        message_recycler_view = findViewById<RecyclerView>(R.id.message_recycler_view)
+        message_recycler_view.hasFixedSize()
+        message_recycler_view.visibility = View.VISIBLE
+
+
+        tvMessage = findViewById<TextView>(R.id.tvMessages)
+        editMessage = findViewById<EditText>(R.id.editMessage)
+        btnEditMessage = findViewById<Button>(R.id.btnEditMessage)
         btnEditMessage.setOnClickListener(this)
 
         imgFav = findViewById<View>(R.id.imgFav) as ImageView
@@ -102,9 +114,13 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
         arrayListMessae = messageRepo.getAllMessages(applicationContext)
 
         Log.e("LIXE SIXE", "   3     arrayListMessae=" + arrayListMessae.size)
-        messageAdapter = MessageBaseAdapter(applicationContext, arrayListMessae)
-        listViewMesssage.adapter = messageAdapter
-        listViewMesssage.onItemClickListener = this
+        // messageAdapter = MessageBaseAdapter(applicationContext, arrayListMessae)
+        //listViewMesssage.adapter = messageAdapter
+
+        message_recycler_view.layoutManager = LinearLayoutManager(applicationContext);
+        message_recycler_view.adapter = MessageRecyclerViewAdapter(arrayListMessae)
+
+        ///listViewMesssage.onItemClickListener = this
         flagFav = birthday.favourite
         if (flagFav == 0) {
             imgFav.setBackgroundResource(R.drawable.nofav_32)
@@ -115,26 +131,24 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
 
     }
 
-    override fun onItemClick(arg0: AdapterView<*>, view: View, arg2: Int, arg3: Long) {
-        // TODO Auto-generated method stub
+    /*override fun onItemClick(arg0: AdapterView<*>, view: View, arg2: Int, arg3: Long) {
         val messageId = arrayListMessae[arg2].message_ID
         showMessage(messageId)
 
-    }
+    }*/
 
-    protected fun showMessage(messageId: Int) {
-        // Toast.makeText(getApplicationContext(), ""+messageId, Toast.LENGTH_SHORT).show();
-        // TODO Auto-generated method stub
+
+    fun showMessage(messageId: Int) {
+
         val messageRepo = MessageRepo(applicationContext)
         var message = Message(applicationContext)
         message = messageRepo.getMessage(messageId, applicationContext)
-        listViewMesssage.visibility = View.GONE
+        message_recycler_view.visibility = View.GONE
         tvMessage.visibility = View.VISIBLE
         tvMessage.text = message.messageName
         btnEditMessage.visibility = View.VISIBLE
         messageType = "textview"
     }
-
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btnEdit -> {
@@ -203,7 +217,7 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
             R.id.btnEditMessage -> {
                 editMessage.visibility = View.VISIBLE
                 tvMessage.visibility = View.GONE
-                listViewMesssage.visibility = View.GONE
+                message_recycler_view.visibility = View.GONE
                 btnEditMessage.visibility = View.GONE
                 editMessage.setText(tvMessage.text.toString())
                 messageType = "edittext"
@@ -261,7 +275,7 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener, OnItemClickLi
 
     }
 
-    protected fun sendSMSMessage(phoneNo: String, message: String) {
+    fun sendSMSMessage(phoneNo: String, message: String) {
         try {
             val smsManager = SmsManager.getDefault()
             smsManager.sendTextMessage(phoneNo, null, message, null, null)

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Happy BirthDay</string>
+    <string name="app_name">Wish BirthDay</string>
     <string name="action_settings">Settings</string>
     <string name="name" >Name</string>
     <string name="email">Email</string>
@@ -49,7 +49,7 @@
     <string name="setnotification">Set Notification</string>
     <string name="emialremindermessage">Provide Email address Otherwise leave Empty </string>
     <string name="mobileremindermessage">Provide Mobile Number Otherwise leave Empty</string>
-    <string name="emptymessae">Happy Birthday to a person that’s charming, talented and witty reminds me a lot of myself.</string>
+    <string name="emptymessae">Wish Birthday to a person that’s charming, talented and witty reminds me a lot of myself.</string>
 
     <string name="daysremaing">Days to go</string>
     <string name="todaybirthday">Today Birthday, wish to click</string>

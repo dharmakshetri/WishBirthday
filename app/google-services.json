@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1018524678878",
+    "firebase_url": "https://wish-birthday.firebaseio.com",
+    "project_id": "wish-birthday",
+    "storage_bucket": "wish-birthday.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018524678878:android:4bd325939c0532c4",
+        "android_client_info": {
+          "package_name": "co.prandroid.wishbirthday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018524678878-cs7rjc1av351vh228tjg6oaacs5mc82o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.prandroid.wishbirthday",
+            "certificate_hash": "6a2858f6e5a70737865593401adbd02bf92a74f9"
+          }
+        },
+        {
+          "client_id": "1018524678878-i84sagkcqv4nc3eg3ah7unl757tlng6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt0Ba5WGLfqXec6MEWJEMRiafkNZLHWy8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018524678878-i84sagkcqv4nc3eg3ah7unl757tlng6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

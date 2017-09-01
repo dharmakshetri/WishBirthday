@@ -2,6 +2,7 @@ package co.prandroid.wishbirthday
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 
@@ -31,9 +32,13 @@ import co.prandroid.wishbirthday.birthday.BirthdaysAdd
 import co.prandroid.wishbirthday.fragments.AllFragment
 import co.prandroid.wishbirthday.fragments.FavouriteFragment
 import co.prandroid.wishbirthday.fragments.OtherFragment
+import co.prandroid.wishbirthday.model.ShareMessage
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.firebase.FirebaseException
+import com.google.firebase.database.*
+import com.google.gson.Gson
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,13 +49,17 @@ class MainActivity : AppCompatActivity() {
     internal var currentTimeMilli: Long = 0
     private var mInterstitialAd: InterstitialAd? = null
 
-
+    lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
+
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+
+        loadFirebaseData()
         //setNotification(bid);
         toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -101,6 +110,36 @@ class MainActivity : AppCompatActivity() {
             //goToNextLevel();
         })
 
+
+    }
+
+    private fun loadFirebaseData() {
+        println("Load firebase data")
+        var gson=Gson()
+        var listUsers=  ArrayList<String>()
+        databaseReference!!
+                .child("birthday")
+                .addValueEventListener(object : ValueEventListener {
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var status:String=snapshot.value.toString()
+                        listUsers.add(status)
+                        println("firebase STATUS: ${status}")
+                        var status1:String=snapshot.toString()
+                        println("firebase STATUS:-- ${listUsers.size}")
+                        listUsers.add(status)
+
+                        for (child: DataSnapshot in snapshot.children) {
+                            val serialized: String? = child.getValue(String::class.java)
+                            Log.i("Firebase:", serialized.toString())
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError?) {
+                        println("firebase Error")
+                    }
+                })
 
     }
 
