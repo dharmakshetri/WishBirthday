@@ -30,22 +30,22 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
     internal lateinit var btnEmail: Button
     internal lateinit var btnMessage: Button
     internal lateinit var btnShare: Button
-    internal lateinit var btnEditNames: Button
+
     internal var birthDayId: Int = 0
     internal lateinit var birthday: Birthday
     // internal lateinit var listViewMesssage: ListView
     internal var arrayListMessae = ArrayList<Message>()
     // internal lateinit var messageAdapter: MessageBaseAdapter
-    internal lateinit var btnEditMessage: Button
-    internal lateinit var tvMessage: TextView
+
+    internal lateinit var btnEditNames: Button
     internal lateinit var editMessage: EditText
-    var messageType: String = ""
-    internal var textSubject = "Happy Birthday to You!!!"
     internal var textMessage = ""
+    internal var textSubject = "Happy Birthday to You!!!"
+
     internal lateinit var imgFav: ImageView
     internal var flagFav = 0
 
-    lateinit var message_recycler_view: RecyclerView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +67,12 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
         setUpValues()
     }
 
+    companion object {
+        lateinit var message_recycler_view: RecyclerView
+        internal lateinit var tvMessage: TextView
+        internal lateinit var btnEditMessage: Button
+        var messageType: String = ""
+    }
     fun setUpViews() {
         tvName = findViewById<TextView>(R.id.txtName)
 
@@ -118,7 +124,7 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
         //listViewMesssage.adapter = messageAdapter
 
         message_recycler_view.layoutManager = LinearLayoutManager(applicationContext);
-        message_recycler_view.adapter = MessageRecyclerViewAdapter(arrayListMessae)
+        message_recycler_view.adapter = MessageRecyclerViewAdapter(applicationContext,arrayListMessae)
 
         ///listViewMesssage.onItemClickListener = this
         flagFav = birthday.favourite
@@ -128,17 +134,9 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
         } else {
             imgFav.setBackgroundResource(R.drawable.fav_32)
         }
-
     }
 
-    /*override fun onItemClick(arg0: AdapterView<*>, view: View, arg2: Int, arg3: Long) {
-        val messageId = arrayListMessae[arg2].message_ID
-        showMessage(messageId)
-
-    }*/
-
-
-    fun showMessage(messageId: Int) {
+    /*fun showMessage(messageId: Int) {
 
         val messageRepo = MessageRepo(applicationContext)
         var message = Message(applicationContext)
@@ -148,7 +146,7 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
         tvMessage.text = message.messageName
         btnEditMessage.visibility = View.VISIBLE
         messageType = "textview"
-    }
+    }*/
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btnEdit -> {
