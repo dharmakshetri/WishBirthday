@@ -55,7 +55,6 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
         val extras = intent.extras
         if (extras != null) {
             if (extras.containsKey(Birthday.KEY_ID)) {
-                // extract the extra-data in the Notification
                 birthDayId = extras.getInt(Birthday.KEY_ID)
             }
         }
@@ -114,14 +113,9 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
         tvRemainingTime.text = birthday.notification
         val messageRepo = MessageRepo(applicationContext)
         val message = Message(applicationContext)
-        Log.e("LIXE SIXE", "   1     arrayListMessae=" + arrayListMessae.size)
-        arrayListMessae.clear()
-        Log.e("LIXE SIXE", "   2     arrayListMessae=" + arrayListMessae.size)
-        arrayListMessae = messageRepo.getAllMessages(applicationContext)
 
-        Log.e("LIXE SIXE", "   3     arrayListMessae=" + arrayListMessae.size)
-        // messageAdapter = MessageBaseAdapter(applicationContext, arrayListMessae)
-        //listViewMesssage.adapter = messageAdapter
+        arrayListMessae.clear()
+        arrayListMessae = messageRepo.getAllMessages(applicationContext)
 
         message_recycler_view.layoutManager = LinearLayoutManager(applicationContext);
         message_recycler_view.adapter = MessageRecyclerViewAdapter(applicationContext,arrayListMessae)
@@ -136,17 +130,6 @@ class BirthdayDetails : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    /*fun showMessage(messageId: Int) {
-
-        val messageRepo = MessageRepo(applicationContext)
-        var message = Message(applicationContext)
-        message = messageRepo.getMessage(messageId, applicationContext)
-        message_recycler_view.visibility = View.GONE
-        tvMessage.visibility = View.VISIBLE
-        tvMessage.text = message.messageName
-        btnEditMessage.visibility = View.VISIBLE
-        messageType = "textview"
-    }*/
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btnEdit -> {
