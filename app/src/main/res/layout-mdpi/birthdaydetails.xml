@@ -3,70 +3,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/namecardview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/text_margin"
-        android:text="Ram Prasad"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="6dp"
+        card_view:contentPadding="8dp">
 
-    <TextView
-        android:id="@+id/txtBirthDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtName"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/text_margin"  android:textSize="@dimen/textSize"
-        android:text="BirthDay 28 January"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtRTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtBirthDate"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/text_margin"
-        android:visibility="gone"
-        android:text="12 Days 4 hours"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignParentRight="true"
-        android:layout_below="@+id/txtRTime" android:layout_marginRight="10dp"
-        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="Ram Prasad"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imgFav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_gravity="center_vertical"
-            android:layout_centerVertical="true" android:layout_marginRight="@dimen/text_left_right_margin"
-            android:background="@drawable/nofav_32"
-            android:visibility="visible" />
+                <TextView
+                    android:id="@+id/txtBirthDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtName"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="BirthDay 28 January"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit"
-            android:textColor="@color/white"
-            android:padding="5sp"
-            android:layout_margin="5dp"
-            android:background="@color/colorPrimaryDark"
-            android:visibility="visible" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/txtRTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtBirthDate"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="12 Days 4 hours"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgFav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/text_left_right_margin"
+                    android:background="@drawable/nofav_32"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/buttons"
+                    android:padding="5sp"
+                    android:text="@string/edit"
+                    android:textColor="@color/white"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayoutFav"
+        android:layout_below="@+id/namecardview"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginLeft="@dimen/text_left_right_margin"
         android:layout_marginRight="@dimen/text_left_right_margin"
@@ -120,7 +149,7 @@
         android:id="@+id/message_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayoutFav"
+        android:layout_below="@+id/namecardview"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginLeft="@dimen/text_left_right_margin"
         android:layout_marginRight="@dimen/text_left_right_margin"
@@ -142,7 +171,7 @@
             android:textColor="@color/white"
             android:layout_marginBottom="5dp"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/buttons"
             android:text="@string/email" />
 
         <Button
@@ -153,7 +182,7 @@
             android:textColor="@color/white"
             android:layout_marginBottom="5dp"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/buttons"
             android:text="@string/message" />
 
         <Button
@@ -164,7 +193,7 @@
             android:textColor="@color/white"
             android:layout_marginBottom="5dp"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/buttons"
             android:text="@string/share" />
     </LinearLayout>
 
