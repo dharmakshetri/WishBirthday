@@ -37,7 +37,7 @@
         <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" > </activity>
-        <receiver android:name=".NotificationActionReceiver" >
+        <receiver android:name=".notification.NotificationActionReceiver" >
         </receiver>
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for

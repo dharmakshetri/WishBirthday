@@ -16,7 +16,6 @@ import java.util.TimeZone
 
 class Birthday {
 
-
     var name: String?=null
     var birthday_ID: Int = 0
     var email: String? = null
