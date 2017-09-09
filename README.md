@@ -17,9 +17,9 @@ Wishing birthday to your friend, family, relatives, collegues.
 
 Personal Website: www.dharmakshetri.me
 
-Git Hub: www.github.com/dharmakshetri
+GitHub: www.github.com/dharmakshetri
 
-Apps on Google Play: [Published App Google Play](https://play.google.com/store/search?q=kshetri%20dharma&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+Apps on Google Play: [Published App Google Play](https://play.google.com/store/apps/dev?id=8471425665700230791)
 
 
 #### Frequently used tags
