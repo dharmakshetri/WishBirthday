@@ -1,6 +1,6 @@
 ## WishBirthday
 
-Wishing birthday to your friend, family, relatives, collegues.
+Wish birthday to your friend, family, relatives, collegues with great message through email,sms and share to social media.
 
 ### Used:
 
